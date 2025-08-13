@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>May 20, 2025</title>
+  
+</head>
+<body>
+
+  <div class="search">
+    <div class="input-container">
+      <input type="url" id="postnum" placeholder="Insert API URL">
+      <button id="dropdownToggle"><svg width="25" height="25" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.5875 23.4125C15.3687 24.1938 16.6375 24.1938 17.4187 23.4125L25.4188 15.4125C25.9938 14.8375 26.1625 13.9813 25.85 13.2313C25.5375 12.4813 24.8125 11.9938 24 11.9938L8 12C7.19375 12 6.4625 12.4875 6.15 13.2375C5.8375 13.9875 6.0125 14.8438 6.58125 15.4188L14.5813 23.4188L14.5875 23.4125Z" fill="white"/>
+        </svg></button>
+      <ul id="dropdown" class="dropdown-list"></ul>
+    </div>
+    <button onclick="fetchData()">Submit</button>
+  </div>
+
+  <div class="result">
+    <div id="output-1"></div>
+    <div id="output-2"></div>
+  </div>
+
+  <script>
+
+  let dropdownToggle = document.getElementById("dropdownToggle");
+
+  dropdownToggle.addEventListener("click", function () {
+    
+    const dropdown = document.getElementById("dropdown");
+
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  });
+
+
+  let dropdown =  document.getElementById("dropdown");
+
+  dropdown.addEventListener("click", function (e) {
+    if (e.target.tagName === "LI") {
+      document.getElementById("postnum").value = e.target.textContent;
+      document.getElementById("dropdown").style.display = "none";
+    }
+  });
+
+  
+
+  function saveUrlToHistory(url) {
+    let history = JSON.parse(localStorage.getItem("urlHistory")) || [];
+    if (!history.includes(url)) {
+      history.unshift(url);
+      if (history.length > 5) history = history.slice(0, 5);
+      localStorage.setItem("urlHistory", JSON.stringify(history));
+    }
+    updateDropdown();
+  }
+
+  
+  function updateDropdown() {
+
+    const dropdown = document.getElementById("dropdown");
+    const history = JSON.parse(localStorage.getItem("urlHistory")) || [];
+
+    dropdown.innerHTML = "";
+    history.forEach(url => {
+      const li = document.createElement("li");
+      li.textContent = url;
+      dropdown.appendChild(li);
+    });
+  }
+
+  
+  function formatKeyValue(obj) {
+    if (obj === null) return "null";
+    if (typeof obj !== "object") return obj.toString();
+
+    if (Array.isArray(obj)) {
+      return `<ul>${obj.map(item => `<li>${formatKeyValue(item)}</li>`).join('')}</ul>`;
+    } else {
+      return `<ul>` + Object.entries(obj).map(([key, val]) => {
+        return `<li><strong>${key}:</strong> ${formatKeyValue(val)}</li>`;
+      }).join('') + `</ul>`;
+    }
+  }
+
+  
+  function transformData(data) {
+    function transform(obj) {
+      if (obj === null) return null;
+      if (Array.isArray(obj)) return obj.map(transform);
+      if (typeof obj !== 'object') return obj;
+
+      const result = {};
+      for (let key in obj) {
+        let value = obj[key];
+
+        
+        if (/a/i.test(String(value))) {
+          value = String(value).split("").reverse().join("");
+        }
+
+        
+        const newKey = key.length % 2 === 0 ? key + "-iseven" : key;
+
+        
+        if (typeof value === "object" && value !== null) {
+          result[newKey] = transform(value);
+        } else {
+          result[newKey] = value;
+        }
+      }
+      return result;
+    }
+
+    return Array.isArray(data) ? data.map(transform) : transform(data);
+  }
+
+  
+  function fetchData() {
+    const url = document.getElementById("postnum").value;
+
+    if (url) {
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error("Invalid or not found.");
+          return response.json();
+        })
+        .then(data => {
+          saveUrlToHistory(url);
+          document.getElementById("output-1").innerHTML = formatKeyValue(data);
+          const transformed = transformData(data);
+          document.getElementById("output-2").innerHTML = formatKeyValue(transformed);
+        })
+        .catch(error => {
+          document.getElementById("output-1").textContent = error.message;
+          document.getElementById("output-2").textContent = error.message;
+        });
+    } else {
+      document.getElementById("output-1").textContent = "Please enter a valid API URL.";
+      document.getElementById("output-2").textContent = "Please enter a valid API URL.";
+    }
+  }
+
+  
+  updateDropdown();
+</script>
+
+</body>
+</html>
