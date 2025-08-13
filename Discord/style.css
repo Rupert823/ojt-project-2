@@ -1,0 +1,277 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+body{
+    background-image: url("wallpaper1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    font-family: "gg sans", sans-serif;
+    
+}
+
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;   
+}
+
+.logo{
+    padding: 50px 10px;
+}
+
+.menu{
+margin-left: 10px;
+}
+
+.menu ul li{
+    display: inline-block;
+    padding: 55px 0;
+    
+}
+
+
+.menu ul li a{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+.menu ul li a:hover{
+    background: rgb(88, 88, 212);
+    border-radius: 10px;
+    
+    
+}
+
+
+#dropdown1{
+    margin-right: 10px;
+    width: 250px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    color: white;
+
+    height: 150px;
+    position: absolute;
+}
+#dropdown1 li{
+    width: 250px;
+    padding: 10px 20px;
+    box-shadow: 7px 10px 18px rgb(30, 30, 30);
+    background-color:rgb(88, 88, 212);
+    display: inline-block;
+    color: white;
+    
+}
+#dropdown2{
+    margin-right: 10px;
+    width: 250px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    color: white;
+    display: block;
+    height: 150px;
+    position: absolute;
+
+}
+#dropdown2 li{
+    width: 250px;
+    padding: 10px 20px;
+    box-shadow: 7px 10px 18px rgb(30, 30, 30);
+    background-color:rgb(88, 88, 212);
+    display: inline-block;
+    color: white;
+}
+
+#dropdown3{
+    margin-right: 10px;
+    width: 250px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    color: white;
+    display: block;
+    height: 150px;
+    position: absolute;
+
+}
+#dropdown3 li{
+    width: 250px;
+    padding: 10px 20px;
+    box-shadow: 7px 10px 18px rgb(30, 30, 30);
+    background-color:rgb(88, 88, 212);
+    display: inline-block;
+    color: white;
+}
+
+#dropdown4{
+    margin-right: 10px;
+    width: 250px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    color: white;
+    display: block;
+    height: 150px;
+    position: absolute;
+
+}
+#dropdown4 li{
+    width: 250px;
+    padding: 10px 20px;
+    box-shadow: 7px 10px 18px rgb(30, 30, 30);
+    background-color:rgb(88, 88, 212);
+    display: inline-block;
+    color: white;
+}
+.search{
+    padding: 45px 20px;
+}
+
+.search input {
+    width: 250px;
+    height: 20px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+}
+
+#output{
+    background-color:rgb(88, 88, 212);
+    width: 250px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    color: white;
+    position: absolute;
+}
+
+#section{
+    margin: 40px 80px;
+    padding: 50px 50px;
+    
+    width: 550px;
+    
+}
+
+#section h1{
+    font-size: 60px;
+    line-height: 0.8;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    font-weight: 900;
+    
+}
+
+#section p{
+    font-size: 21px;
+    margin-top: 22px;
+    color: white;
+}
+
+#image {
+     
+    transition: opacity 2s ease-in-out; 
+}
+
+#image-container{
+    right: 150px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+      
+}
+#LOG-BTN{
+    margin-top: -70px;
+}
+#LogBar{
+    width: 120px;
+    height: 70px;
+    background-color: rgb(252, 252, 255);
+    border-radius: 20px;
+    border: 2px solid rgb(255, 255, 255);
+    outline: none;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 125px;
+    
+    
+
+}
+#LogBar:hover{
+    background: rgb(188, 188, 255);
+    border-radius: 20px;
+    border: 2px solid  rgb(188, 188, 255);
+    box-shadow: 7px 10px 18px rgb(30, 30, 30);
+}
+.login-form {
+    position: fixed;
+    top: 0;
+    right: -350px; 
+    width: 300px;
+    height: 100%;
+    background-color: rgb(58, 58, 58);
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -8px 7px 12px rgb(0, 0, 0);
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #ddd;
+    margin-top: 20px;
+    
+    
+}
+.login-form p {
+    text-align: center;
+    color: #727171;
+    font-size: 15px;
+    margin-top: 7px;
+    
+}
+
+.login-form input {
+    width: 93%;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #181818;
+    border-radius: 3px;
+    background-color: #181818;
+    color: white;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 15px;
+    background-color:rgb(88, 88, 212);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+}

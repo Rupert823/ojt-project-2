@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="navbar">
+        <div class="logo">
+        <a href="index.html">
+            <img src="logo.png" alt="Logo" width="150">
+        </a>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="https://discord.com/download">Download</a></li>
+                <li><a href="https://discord.com/nitro">Nitro</a></li>
+                <li><a href="https://discord.com/servers">Discover</a></li>
+               
+                <li ><a id="post1">Load User</a>
+                    <ul id="dropdown1">
+                    </ul>
+                </li>
+
+                <li><a id="post2">Posts 2 </a>
+                    <ul id="dropdown2">
+                    </ul>
+                </li>
+
+                <li><a id="post3">Posts 3 </a>
+                    <ul id="dropdown3">
+                    </ul>
+                </li>
+
+                <li><a id="post4">Posts 4 </a>
+                    <ul id="dropdown4">
+                    </ul>
+                </li>
+
+                <li><a href="https://discord.com/servers">Career</a></li>
+
+            </ul>
+        </div>
+
+        <div class="search">
+            <input type="number" id="postnum" placeholder="insert number">
+
+                <ul id="output">
+                </ul>
+
+        </div>
+    </div>
+
+    <div id="section" onmouseover="changeColor()" onmouseout="resetColor()">
+        <h1 id="text">Group chat <br>that’s all <br>fun & games</h1>
+        <b> <p>Discord is great for playing games and chilling with<br>
+               friends, or even building a worldwide community. <br>
+               Customize your own space to talk, play, and <br>
+               hang out.
+            </p>
+        </b>
+    </div>
+
+    
+
+    <DIV id="LOG-BTN">
+        <button id="LogBar">Log In</button>
+    </DIV>
+        <div class="login-form" id="loginForm">
+
+            <span class="close-btn" onclick="closeForm()">✖</span>
+            <h2>Welcome Back!</h2>
+            <p>We're so Excited to see you again!</p>
+            <form>
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+
+    <script>
+
+        //post 1
+        document.getElementById("post1").addEventListener("mouseenter", () => {
+            // 
+            Promise.all([
+                fetch("https://reqres.in/api/users/1").then(res => res.json()),
+                fetch("https://reqres.in/api/users/2").then(res => res.json()),
+                fetch("https://reqres.in/api/users/3").then(res => res.json())
+            ])
+            .then(results => {
+                let AddDiv = document.getElementById("dropdown1");
+
+                results.forEach(data => {
+
+                    let user = data.data;
+
+                    let userContainer = document.createElement("li");
+
+                    userContainer.innerHTML = `
+                        <h3>${user.first_name} ${user.last_name}</h3>
+                        <img src="${user.avatar}" width="100">
+                        <p>Email: ${user.email}</p>
+                    `;
+
+                    AddDiv.appendChild(userContainer);
+                });
+            })
+            .catch(error => console.error("Error fetching users:", error));
+        });
+        document.getElementById("post1").addEventListener("mouseout", () => {
+                document.getElementById("dropdown1").innerHTML ="";
+                });
+    //post 2
+        document.getElementById("post2").addEventListener("mouseenter", function() {
+        fetch("https://jsonplaceholder.typicode.com/posts/2")
+        .then(response => response.json()) 
+        .then(data => {
+        document.getElementById("dropdown2").innerHTML = `
+            <li>UserId: ${data.userId}</li>
+            <li>Id: ${data.id}</li>
+            <li>Title: ${data.title}</li>
+            <li>Body: ${data.body}</li>
+    `;
+    })
+    .catch(error => console.error("Error:", error));
+    });
+    document.getElementById("post2").addEventListener("mouseout", function() {
+    document.getElementById("dropdown2").innerHTML = "";
+});
+ 
+    //post 3
+    document.getElementById("post3").addEventListener("mouseenter", function() {
+        fetch("https://jsonplaceholder.typicode.com/posts/3")
+        .then(response => response.json()) 
+        .then(data => {
+        document.getElementById("dropdown3").innerHTML = `
+            <li>UserId: ${data.userId}</li>
+            <li>Id: ${data.id}</li>
+            <li>Title: ${data.title}</li>
+            <li>Body: ${data.body}</li>
+    `;
+    })
+    .catch(error => console.error("Error:", error));
+    });
+    document.getElementById("post3").addEventListener("mouseout", function() {
+    document.getElementById("dropdown3").innerHTML = "";
+});
+
+document.getElementById("post4").addEventListener("mouseenter", function() {
+        fetch("https://jsonplaceholder.typicode.com/posts/4")
+        .then(response => response.json()) 
+        .then(data => {
+        document.getElementById("dropdown4").innerHTML = `
+            <li>UserId: ${data.userId}</li>
+            <li>Id: ${data.id}</li>
+            <li>Title: ${data.title}</li>
+            <li>Body: ${data.body}</li>
+    `;
+    })
+    .catch(error => console.error("Error:", error));
+    });
+    document.getElementById("post4").addEventListener("mouseout", function() {
+    document.getElementById("dropdown4").innerHTML = "";
+});
+
+        //section
+        let text = document.getElementsByTagName("h1")[0];
+
+       function changeColor() {
+       text.style.color = "#e9d5ff";
+       text.innerText = "A community \nbuilt for \nfun & gaming!";
+    }
+
+    function resetColor() {
+        document.getElementById("text").style.color = "white";
+        document.getElementById("text").innerText = "Group chat \nthat’s all \nfun & games";
+    }
+        
+        //search bar
+        document.getElementById("postnum").addEventListener("input", function() {
+            
+            let postnum = this.value;
+
+            if (postnum) { 
+                fetch(`https://jsonplaceholder.typicode.com/posts/${postnum}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("output").innerHTML = `
+                            <li>${data.title}</li>
+                            <li>${data.body}</li>
+                            <li>${data.userId}</li>
+                            <li>${data.id}</li>
+                        `;
+                    })
+                    
+            } else {
+                document.getElementById("output").innerHTML = ""; 
+            }
+        });
+
+        document.getElementById("LogBar").addEventListener("click", function() {
+    document.getElementById("loginForm").style.right = "0";
+});
+
+function closeForm() {
+    document.getElementById("loginForm").style.right = "-350px";
+}
+
+    </script>
+</body>
+</html>
